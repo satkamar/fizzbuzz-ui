@@ -1,0 +1,2 @@
+export const GET_FIZZ_BUZZ = "GET_FIZZ_BUZZ"
+export const UPDATE_RESPONSE = "UPDATE_RESPONSE"

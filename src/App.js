@@ -1,58 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import React, {useState} from 'react';
+import { connect } from 'react-redux'
 
-function App() {
+import './App.css';
+import { getFizzBuzzData} from './actions/index'
+import {Box, Grid, Button, TextField } from '@mui/material';
+
+ function App(props) {
+  const [count, setCount] = useState(0)
+
+  const onChangeHandler = (e) => {
+    setCount(parseInt(e.target.value))
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
+    <Box sx={{ width: '100%' }}>
+      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+        <Grid item xs={10}>
+          <TextField  value={count} name='count' type='number' variant='outlined' onChange={(e) => onChangeHandler(e)} />
+        </Grid>
+        <Grid item xs={2}>
+          <Button onClick={() => props.getFizzBuzzData(count) }>Get</Button>
+        </Grid>
+        <Grid item xs={12}>
+          {props.fizzbuzz && props.fizzbuzz.result && props.fizzbuzz.result.length ? props.fizzbuzz.result.map((value, index) => {
+            return <div key={index}>{value} </div>
+          }) : <> </>}
+        </Grid>
+       
+      </Grid>
+    </Box>
   );
 }
 
-export default App;
+
+const mapStateToProps = (state) => ({
+  fizzbuzz: state.fizzbuzz
+
+})
+
+const mapDispatchToProps = {
+  getFizzBuzzData
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)
+
