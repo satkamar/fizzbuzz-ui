@@ -19,14 +19,29 @@ const styles = {
   viewcard: {
     overflow: "auto",
     maxHeight: "450px"
+  },
+  countError: {
+    color: "#DD0000",
+    fontSize: "10px"
   }
 };
 
 function Fizzbuzz(props) {
-  const [count, setCount] = useState(null)
+  const [count, setCount] = useState('')
+  const [countError, setCountError] = useState('')
+
 
   const onChangeHandler = (e) => {
-    setCount(parseInt(e.target.value))
+
+    if (typeof parseInt(e.target.value) === 'number')
+      setCount(parseInt(e.target.value))
+    else
+      setCountError("Please enter integer value")
+  }
+
+  const clearCount = () => {
+    setCount('')
+    setCountError("")
   }
 
   return (
@@ -38,12 +53,14 @@ function Fizzbuzz(props) {
               <h3 style={{ ...styles.header }}>Fizz Buzz</h3>
             </Grid>
             <Grid item xs={12}>
+
               <TextField style={{ ...styles.input }} value={count} name='count' type='number' variant='filled' onChange={(e) => onChangeHandler(e)} />
+              {countError ? <span style={{ ...styles.countError }}>{countError}</span> : <></>}
             </Grid>
             <Grid item xs={12} style={{ ...styles.header }}>
 
-              <Button variant="outlined" size="small" onClick={() => props.getFizzBuzzData(count)}>Get</Button>
-              <Button variant="outlined" size="small" onClick={() => setCount(0)}>Clear</Button>
+              <Button disabled={!count} variant="outlined" size="small" onClick={() => props.getFizzBuzzData(count)}>Get</Button>
+              <Button variant="outlined" size="small" onClick={() => clearCount()}>Clear</Button>
               <Button variant="outlined" size="small" onClick={() => props.clearData()}>Reset</Button>
             </Grid>
             <Grid item xs={12} style={{ ...styles.viewcard }}>
