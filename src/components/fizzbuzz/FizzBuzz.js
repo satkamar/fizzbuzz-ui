@@ -32,11 +32,18 @@ function Fizzbuzz(props) {
 
 
   const onChangeHandler = (e) => {
+    let error = ''
+    if (!isNaN(e.target.value)){
+      let value = parseInt(e.target.value)
 
-    if (typeof parseInt(e.target.value) === 'number')
-      setCount(parseInt(e.target.value))
-    else
-      setCountError("Please enter integer value")
+      if(value > 100 || value < 0) 
+        error ="Input value must be between 1 to 100"
+      else
+        setCount(value)
+    } else
+      error ="Please enter integer value"
+
+    setCountError(error)
   }
 
   const clearCount = () => {
@@ -54,7 +61,7 @@ function Fizzbuzz(props) {
             </Grid>
             <Grid item xs={12}>
 
-              <TextField style={{ ...styles.input }} value={count} name='count' type='number' variant='filled' onChange={(e) => onChangeHandler(e)} />
+              <TextField style={{ ...styles.input }} value={count} InputProps={{ inputProps: { min: 0 } }} name='count' type='number' variant='filled' onChange={(e) => onChangeHandler(e)} />
               {countError ? <span style={{ ...styles.countError }}>{countError}</span> : <></>}
             </Grid>
             <Grid item xs={12} style={{ ...styles.header }}>
@@ -75,10 +82,9 @@ function Fizzbuzz(props) {
 }
 
 
-const mapStateToProps = (state) => ({
-  fizzbuzz: state.fizzbuzz
-
-})
+// const mapStateToProps = (state) => ({
+//   fizzbuzz: state.fizzbuzz
+// })
 
 const mapDispatchToProps = {
   getFizzBuzzData,
@@ -86,5 +92,5 @@ const mapDispatchToProps = {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Fizzbuzz)
+export default connect(null, mapDispatchToProps)(Fizzbuzz)
 
