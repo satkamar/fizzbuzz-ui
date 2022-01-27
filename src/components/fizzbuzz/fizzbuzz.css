@@ -1,0 +1,26 @@
+.header {
+  background-color: #65b9f459;
+  text-align: center
+}
+
+.input {
+  width: 100%
+}
+
+.button {
+  margin: 0 5px !important
+}
+
+.container {
+  margin: 10px 30%;
+  padding: 30px;
+  min-height: 450px
+}
+.viewcard {
+  overflow: auto;
+  max-height: 325px
+}
+.countError {
+  color: #DD0000;
+  font-size: 10px
+}

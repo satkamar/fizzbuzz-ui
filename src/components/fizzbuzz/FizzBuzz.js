@@ -1,35 +1,16 @@
 import React, { useState } from 'react'
-import { connect } from 'react-redux'
+import { connect, useSelector } from 'react-redux'
+
 import { Paper, Box, Grid, Button, TextField } from '@mui/material';
 import { getFizzBuzzData, clearData } from '../../actions/index'
 import ViewResult from './ViewResult';
-
-const styles = {
-  input: {
-    width: "100%"
-  },
-  header: {
-    textAlign: "center"
-  },
-  container: {
-    margin: "10px 30%",
-    padding: "30px",
-    minHeight: "600px"
-  },
-  viewcard: {
-    overflow: "auto",
-    maxHeight: "450px"
-  },
-  countError: {
-    color: "#DD0000",
-    fontSize: "10px"
-  }
-};
+import './fizzbuzz.css'
 
 function Fizzbuzz(props) {
   const [count, setCount] = useState('')
   const [countError, setCountError] = useState('')
 
+  const fizzbuzzList = useSelector((state) => state.fizzbuzz)
 
   const onChangeHandler = (e) => {
     let error = ''
@@ -53,24 +34,24 @@ function Fizzbuzz(props) {
 
   return (
     <>
-      <Paper variant="outlined" style={{ ...styles.container }} >
+      <Paper variant="outlined" className='container' >
         <Box sx={{ width: '100%' }}>
-          <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-            <Grid item xs={12}>
-              <h3 style={{ ...styles.header }}>Fizz Buzz</h3>
+          <Grid container rowSpacing={1} style={{textAlign: "center"}}>
+            <Grid item xs={12} className='header'>
+              <h3 >Fizz Buzz</h3>
             </Grid>
             <Grid item xs={12}>
 
-              <TextField style={{ ...styles.input }} value={count} InputProps={{ inputProps: { min: 0 } }} name='count' type='number' variant='filled' onChange={(e) => onChangeHandler(e)} />
-              {countError ? <span style={{ ...styles.countError }}>{countError}</span> : <></>}
+              <TextField className= 'input' value={count} InputProps={{ inputProps: { min: 0 } }} name='count' type='number' variant='filled' onChange={(e) => onChangeHandler(e)} />
+              {countError ? <span className='countError'>{countError}</span> : <></>}
             </Grid>
-            <Grid item xs={12} style={{ ...styles.header }}>
+            <Grid item xs={12} >
 
-              <Button disabled={!count} variant="outlined" size="small" onClick={() => props.getFizzBuzzData(count)}>Get</Button>
-              <Button variant="outlined" size="small" onClick={() => clearCount()}>Clear</Button>
-              <Button variant="outlined" size="small" onClick={() => props.clearData()}>Reset</Button>
+              <Button  disabled={!count} variant="outlined" size="small" onClick={() => props.getFizzBuzzData(count)}>Get</Button>
+              <Button disabled={!count} className='button' variant="outlined" size="small" onClick={() => clearCount()}>Clear</Button>
+              <Button disabled={!fizzbuzzList || !fizzbuzzList.result || !fizzbuzzList.result.length }  variant="outlined" size="small" onClick={() => props.clearData()}>Reset</Button>
             </Grid>
-            <Grid item xs={12} style={{ ...styles.viewcard }}>
+            <Grid item xs={12} className='viewcard'>
               <ViewResult />
             </Grid>
 
