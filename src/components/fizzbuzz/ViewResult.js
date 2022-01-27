@@ -19,7 +19,7 @@ function ViewResult(props) {
 
           {fizzbuzzList.result.map((value, index) => {
             return <React.Fragment key={index}>
-              <ListItem button>
+              <ListItem button style= {{ background: typeof value != 'number' ? (value == 'Fizz' ? '#1396d2' : (value == 'Buzz' ? '#7ac1fa' : '#09669c') ) : '#FFF'} }>
                 <ListItemText primary={value} />
               </ListItem>
               <Divider />
