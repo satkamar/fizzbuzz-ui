@@ -1,6 +1,6 @@
 import Axios from "axios";
 
-const GET_FIZZ_BUZZ_DATA = 'http://localhost:4400/getFizzBuzz'
+const GET_FIZZ_BUZZ_DATA = 'http://3.87.184.165:4400/getFizzBuzz'
 
 
 export const getFizzBuzz = (count) => {
