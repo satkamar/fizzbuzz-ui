@@ -1,0 +1,8 @@
+{
+    "app_id": "tracker-zxftx",
+    "config_version": 20210101,
+    "name": "Tracker",
+    "location": "US-VA",
+    "deployment_model": "GLOBAL",
+    "environment": "development"
+}
